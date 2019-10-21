@@ -15,8 +15,11 @@ const signUpEmailAndPassword = (request, response) => {
     lastName: request.body.lastName,
   };
 
-  const {errors, valid} = validateSignUpData(newUser);
-  if (!valid) response.status(400).json(errors);
+  //validate inputs //
+  // const {errors, valid} = validateSignUpData(newUser);
+  // if (!valid) return response.status(400).json(errors);
+  const {error} = validateSignUpData(newUser);
+  if (error) return response.status(400).send(error.details[0].message);
 
   firebase
     .auth()
@@ -50,8 +53,11 @@ const signInEmailAndPassword = (request, response) => {
     password: request.body.password,
   };
 
-  const {errors, valid} = validateSignInData(user);
-  if (!valid) return response.status(400).json(errors);
+  // const {errors, valid} = validateSignInData(user);
+  // if (!valid) return response.status(400).json(errors);
+
+  const {error} = validateSignInData(user);
+  if (error) return response.status(400).send(error.details[0].message);
 
   firebase
     .auth()
