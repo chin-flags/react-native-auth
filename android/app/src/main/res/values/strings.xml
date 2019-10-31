@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">reactNativeAuth</string>
+    <string name="facebook_app_id">421813738718325</string>
 </resources>

@@ -3,12 +3,11 @@ import React from 'react';
 import { TouchableOpacity, Text } from 'react-native';
 
 import { layout } from '../utils/constants';
-
-const HeaderButton = ({ title, right, collapsed }) => (
+const HeaderButton = ({ title, right, collapsed, active, onPress }) => (
   <TouchableOpacity
     activeOpacity={0.8}
     style={{
-      backgroundColor: 'white',
+      backgroundColor: active ? 'teal' : 'white',
       elevation: 1,
       height: 60,
       width: collapsed ? layout.window.width * 0.5 : layout.window.width * 0.4,
@@ -20,9 +19,10 @@ const HeaderButton = ({ title, right, collapsed }) => (
       borderTopRightRadius:collapsed ? 0 : right ? 0 : 20,
       borderBottomEndRadius:collapsed ? 0 : right ? 0 : 20,
     }}
+    onPress={onPress}
   >
     <Text style={{
-      color: '#3E5B79',
+      color: active ? 'white' : '#3E5B79',
       fontSize: 20,
       fontWeight: 'bold',
       fontFamily: 'notosans-regular',

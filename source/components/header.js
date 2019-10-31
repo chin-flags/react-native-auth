@@ -1,8 +1,12 @@
 /* eslint-disable react/jsx-filename-extension */
-import React, { useState } from 'react';
-import { View, Text, Image, TouchableOpacity, StyleSheet, Animated } from 'react-native';
-import { useNavigation } from 'react-navigation-hooks';
-import { colors, layout } from '../utils/constants';
+import React from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Animated, 
+} from 'react-native';
+import { layout } from '../utils/constants';
 import HeaderButton from './headerButton';
 
 const styles = StyleSheet.create({
@@ -16,8 +20,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const Header = ({ headerHeight, collapsed }) => {
-  
+const Header = ({ headerHeight, collapsed, signInActive, setSignInActive }) => {
   return (
     <View>
       <Animated.View style={{...styles.container, height: headerHeight }}>
@@ -43,8 +46,8 @@ const Header = ({ headerHeight, collapsed }) => {
         </View>
       </Animated.View>
       <View style={{width: '100%', zIndex: 1, position: 'absolute', bottom: -30, flexDirection: 'row', justifyContent: 'space-between'}}>
-        <HeaderButton title="Sign Up" collapsed={collapsed} />
-        <HeaderButton title="Sign In" right collapsed={collapsed} />
+        <HeaderButton title="Sign In" collapsed={collapsed} active={signInActive} onPress={() => setSignInActive(true)} />
+        <HeaderButton title="Sign Up" right collapsed={collapsed} active={!signInActive} onPress={() => setSignInActive(false)} />
       </View>
     </View>
   );

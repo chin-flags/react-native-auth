@@ -4,7 +4,7 @@ import HomeScreen from '../screens/HomeScreen';
 
 const AppNavigator = createAppContainer(
   createSwitchNavigator({
-    Auth: AuthStackNavigator,
+    AuthStack: AuthStackNavigator,
     Home: HomeScreen,
   }),
 );

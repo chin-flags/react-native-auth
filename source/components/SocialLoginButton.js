@@ -2,9 +2,11 @@
 import React from 'react';
 import { View, Image, TouchableOpacity } from 'react-native';
 
-const SocialLoginButton = ({ image }) => {
+const SocialLoginButton = ({ image, onPress }) => {
   return (
-    <TouchableOpacity>
+    <TouchableOpacity
+      onPress={() => onPress()}
+    >
       <Image source={image} style={{ width: 40, height: 40 }} />
     </TouchableOpacity>
   );

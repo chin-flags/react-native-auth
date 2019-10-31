@@ -11,11 +11,9 @@ import
 import { withNavigation } from 'react-navigation';
 
 import { layout } from '../utils/constants';
-
 import Header from '../components/header';
-import Separator from '../components/Separator';
-import SocialLogin from '../components/SocialLogin';
-import SignInForm from '../components/SignInForm';
+import SignIn from '../components/SignIn';
+import SignUp from '../components/SignUp';
 
 const styles = StyleSheet.create({
   container: {
@@ -36,12 +34,11 @@ const styles = StyleSheet.create({
   },
 });
 
-const SignInScreen = (props) => {
+const AuthScreen = () => {
   const headerHeight = new Animated.Value(layout.window.height / 4);
   const [collapsed, setCollapsed] = useState(false);
-
+  const [signInActive, setSignInActive] = useState(true);
   const keyBoardDidShow = (event) => {
-    console.log('header', headerHeight);
     Animated.timing(headerHeight, {
       duration: event.duration,
       toValue: 30,
@@ -49,7 +46,6 @@ const SignInScreen = (props) => {
     setCollapsed(true);
   };
   const keyBoardDidHide = (event) => {
-    console.log('header', headerHeight);
     Animated.timing(headerHeight, {
       duration: event.duration,
       toValue: layout.window.height / 4,
@@ -68,20 +64,20 @@ const SignInScreen = (props) => {
 
   return (
     <View style={{flex:1}}>
-      <Header title="Sign In" headerHeight={headerHeight} collapsed={collapsed} />
-      <ScrollView style={{flex: 1}}>
+      <Header title="Sign In" headerHeight={headerHeight} collapsed={collapsed} signInActive={signInActive} setSignInActive={setSignInActive} />
+      <ScrollView style={{flex: 1 }}>
         <View style={styles.container}>
-          <SignInForm />
-          <Separator />
-          <SocialLogin />
+          {
+            signInActive ? <SignIn /> : <SignUp />
+          }
         </View>
       </ScrollView>
     </View>
   );
 };
 
-SignInScreen.navigationOptions = {
+AuthScreen.navigationOptions = {
   header: null,
 };
 
-export default withNavigation(SignInScreen);
+export default withNavigation(AuthScreen);

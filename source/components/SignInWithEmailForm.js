@@ -11,7 +11,8 @@ import
   ActivityIndicator,
 } from 'react-native';
 import useForm from 'react-hook-form';
-import axios from 'axios';
+import auth from '@react-native-firebase/auth';
+import { useNavigation } from 'react-navigation-hooks';
 
 import { emailRegEx } from '../utils/constants';
 
@@ -49,10 +50,9 @@ const styles = StyleSheet.create({
   },
 });
 
-const SignInForm = () => {
+const SignInWithEmailForm = () => {
   const [loading, setLoading] = useState(false);
   const [formError, setFormError] = useState('');
-
   const {
     register,
     setValue,
@@ -60,17 +60,19 @@ const SignInForm = () => {
     handleSubmit,
   } = useForm();
 
-  const handleLogin = (user) => {
+  const { navigate } = useNavigation();
+
+  const handleLogin = async ({ email, password }) => {
     setLoading(true);
-    axios.post('https://us-central1-react-native-auth-functions.cloudfunctions.net/api/signin', user)
-      .then((res) => {
-        console.log(res.data);
-        props.navigation.navigate('Home');
-      })
-      .catch((err) => {
-        setFormError(err.response.data);
-      })
-      .finally(() => setLoading(false));
+    try {
+      const { user } = await auth().signInWithEmailAndPassword(email, password);
+      // save in asyncStorage for later use
+      navigate('Home', { user });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -105,9 +107,9 @@ const SignInForm = () => {
           }
       </Text>
       {
-        formError.error ? (
+        formError ? (
           <Text style={styles.error_text}>
-            {formError.error}
+            {formError}
           </Text>
         )
           : null
@@ -123,4 +125,4 @@ const SignInForm = () => {
   )
 } 
 
-export default SignInForm;
+export default SignInWithEmailForm;
