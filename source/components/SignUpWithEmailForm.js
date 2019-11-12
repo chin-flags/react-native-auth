@@ -139,7 +139,7 @@ const SignUpForm = () => {
         onPress={handleSubmit(handleSignUp)}
       >
         <ActivityIndicator animatingcolor="white" animating={loading} />
-        <Text style={styles.button_text}>SIGN UP</Text>
+        <Text style={styles.button_text}>SUBMIT</Text>
       </TouchableOpacity>
     </View>
   )

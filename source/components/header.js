@@ -7,20 +7,17 @@ import {
   Animated, 
 } from 'react-native';
 import { layout } from '../utils/constants';
-import HeaderButton from './headerButton';
 
 const styles = StyleSheet.create({
   container: {
-    borderBottomRightRadius: layout.sizes.padding,
-    borderBottomLeftRadius: layout.sizes.padding,
     justifyContent: 'space-between',
-    backgroundColor: '#eeeeee',
     paddingTop: layout.sizes.padding * 1.5,
     paddingHorizontal: layout.sizes.padding,
+    
   },
 });
 
-const Header = ({ headerHeight, collapsed, signInActive, setSignInActive }) => {
+const Header = ({ headerHeight }) => {
   return (
     <View>
       <Animated.View style={{...styles.container, height: headerHeight }}>
@@ -45,10 +42,6 @@ const Header = ({ headerHeight, collapsed, signInActive, setSignInActive }) => {
           </Text>
         </View>
       </Animated.View>
-      <View style={{width: '100%', zIndex: 1, position: 'absolute', bottom: -30, flexDirection: 'row', justifyContent: 'space-between'}}>
-        <HeaderButton title="Sign In" collapsed={collapsed} active={signInActive} onPress={() => setSignInActive(true)} />
-        <HeaderButton title="Sign Up" right collapsed={collapsed} active={!signInActive} onPress={() => setSignInActive(false)} />
-      </View>
     </View>
   );
 };

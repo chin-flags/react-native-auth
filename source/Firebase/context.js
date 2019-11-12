@@ -1,5 +1,5 @@
 import React from 'react';
 
-const FirebaseContext = React.createContext(null)
+const AuthUserContext = React.createContext(null)
 
-export default FirebaseContext;
+export default AuthUserContext;

@@ -11,9 +11,8 @@ import
   ActivityIndicator,
 } from 'react-native';
 import useForm from 'react-hook-form';
-import auth from '@react-native-firebase/auth';
 import { useNavigation } from 'react-navigation-hooks';
-
+import { useAuth } from '../hooks/useAuth'
 import { emailRegEx } from '../utils/constants';
 
 const styles = StyleSheet.create({
@@ -60,20 +59,7 @@ const SignInWithEmailForm = () => {
     handleSubmit,
   } = useForm();
 
-  const { navigate } = useNavigation();
-
-  const handleLogin = async ({ email, password }) => {
-    setLoading(true);
-    try {
-      const { user } = await auth().signInWithEmailAndPassword(email, password);
-      // save in asyncStorage for later use
-      navigate('Home', { user });
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const auth = useAuth();
 
   return (
     <View>
@@ -116,10 +102,10 @@ const SignInWithEmailForm = () => {
       }
       <TouchableOpacity
         style={styles.button}
-        onPress={handleSubmit(handleLogin)}
+        onPress={handleSubmit(({ email, password }) => auth.signin(email, password))}
       >
         <ActivityIndicator animatingcolor="white" animating={loading} />
-        <Text style={styles.button_text}>SIGN IN</Text>
+        <Text style={styles.button_text}>SUBMIT</Text>
       </TouchableOpacity>
     </View>
   )

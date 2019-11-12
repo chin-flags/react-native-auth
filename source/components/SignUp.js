@@ -10,8 +10,6 @@ import SignUpWithEmailForm from './SignUpWithEmailForm';
 const SignUp = () => (
   <View>
     <SignUpWithEmailForm />
-    <Separator />
-    <SocialLogin />
   </View>
 );
 
